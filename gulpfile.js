@@ -1,14 +1,20 @@
 var gulp = require('gulp');
+
 //requires the gulp-sass plugin
 var sass = require('gulp-sass');
+
 //require browser Sync
 var browserSync = require('browser-sync').create();
-//for merging different .js files in one
-var useref = require('gulp-useref');
+
 //necessary for minifying .js and .css files
+var useref = require('gulp-useref');
 var uglify = require('gulp-uglify');
 var gulpIf = require('gulp-if');
 var cssnano = require('gulp-cssnano');
+
+//optimizing image files
+var imagemin = require('gulp-imagemin');
+
 
 //converts sass to css
 gulp.task('sass', function(){
@@ -45,4 +51,12 @@ gulp.task('useref', function(){
     //and only if it's css file
     .pipe(gulpIf('*.css', cssnano()))
     .pipe(gulp.dest('dist'))
+});
+
+gulp.tas('images', function(){
+  return gulp.src('app/images/**/*.+(png|jpg|gif|svg)')
+    .pipe(imagemin({
+      interlaced: true
+    }))
+    .pipe(gulp.dest('dist/images'))
 });
