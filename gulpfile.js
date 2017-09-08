@@ -56,10 +56,15 @@ gulp.task('useref', function(){
     .pipe(gulp.dest('dist'))
 });
 
-gulp.tas('images', function(){
+gulp.task('images', function(){
   return gulp.src('app/images/**/*.+(png|jpg|gif|svg)')
     .pipe(cache(imagemin({
       interlaced: true
     })))
     .pipe(gulp.dest('dist/images'))
 });
+
+gulp.task('fonts', function(){
+  return gulp.src('app/fonts/**/*')
+    .pipe(gulp.dest('dist/fonts'))
+})
