@@ -15,6 +15,9 @@ var cssnano = require('gulp-cssnano');
 //optimizing image files
 var imagemin = require('gulp-imagemin');
 
+//caching images files
+var cache = require('gulp-cache');
+
 
 //converts sass to css
 gulp.task('sass', function(){
@@ -55,8 +58,8 @@ gulp.task('useref', function(){
 
 gulp.tas('images', function(){
   return gulp.src('app/images/**/*.+(png|jpg|gif|svg)')
-    .pipe(imagemin({
+    .pipe(cache(imagemin({
       interlaced: true
-    }))
+    })))
     .pipe(gulp.dest('dist/images'))
 });
