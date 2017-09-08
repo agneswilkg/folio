@@ -18,6 +18,9 @@ var imagemin = require('gulp-imagemin');
 //caching images files
 var cache = require('gulp-cache');
 
+//cleaning up
+var del = require('del');
+
 
 //converts sass to css
 gulp.task('sass', function(){
@@ -67,4 +70,8 @@ gulp.task('images', function(){
 gulp.task('fonts', function(){
   return gulp.src('app/fonts/**/*')
     .pipe(gulp.dest('dist/fonts'))
-})
+});
+
+gulp.task('clean:dist', function(){
+  return del.sync('dist')
+});
