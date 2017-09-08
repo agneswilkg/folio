@@ -75,3 +75,7 @@ gulp.task('fonts', function(){
 gulp.task('clean:dist', function(){
   return del.sync('dist')
 });
+
+gulp.task('cache:clear', function(callback){
+  return cache.clearAll(callback)
+});
