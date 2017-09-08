@@ -21,6 +21,9 @@ var cache = require('gulp-cache');
 //cleaning up
 var del = require('del');
 
+//building run sequence
+var runSequence = require('run-sequence');
+
 
 //converts sass to css
 gulp.task('sass', function(){
@@ -78,4 +81,18 @@ gulp.task('clean:dist', function(){
 
 gulp.task('cache:clear', function(callback){
   return cache.clearAll(callback)
+});
+
+
+gulp.task('build', function(callback){
+  runSequence('clean:dist',
+    ['sass', 'usref', 'images', 'fonts'],
+    callback
+  )
+});
+
+gulp.task('default', function(callback){
+  runSequence(['sass', 'browserSync', 'watch']
+    callback
+  )
 });
