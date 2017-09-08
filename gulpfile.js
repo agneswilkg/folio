@@ -5,10 +5,10 @@ var sass = require('gulp-sass');
 var browserSync = require('browser-sync').create();
 //for merging different .js files in one
 var useref = require('gulp-useref');
-//necessary for minifying .js files
+//necessary for minifying .js and .css files
 var uglify = require('gulp-uglify');
 var gulpIf = require('gulp-if');
-
+var cssnano = require('gulp-cssnano');
 
 //converts sass to css
 gulp.task('sass', function(){
@@ -42,5 +42,7 @@ gulp.task('useref', function(){
     .pipe(useref())
     //minifies just if its JS files
     .pipe(gulpIf('*.js', uglify()))
+    //and only if it's css file
+    .pipe(gulpIf('*.css', cssnano()))
     .pipe(gulp.dest('dist'))
 });
