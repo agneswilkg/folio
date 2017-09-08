@@ -3,6 +3,11 @@ var gulp = require('gulp');
 var sass = require('gulp-sass');
 //require browser Sync
 var browserSync = require('browser-sync').create();
+//for merging different .js files in one
+var useref = require('gulp-useref');
+//necessary for minifying .js files
+var uglify = require('gulp-uglify');
+var gulpIf = require('gulp-if');
 
 
 //converts sass to css
@@ -29,4 +34,13 @@ gulp.task('watch', ['browserSync', 'sass'], function(){
   //other watchers
   gulp.watch('app/*.html', browserSync.reload);
   gulp.watch('app/js/**/*.js', browserSync.reload);
+});
+
+//merges .js files into one
+gulp.task('useref', function(){
+  return gulp.src('app/*.html')
+    .pipe(useref())
+    //minifies just if its JS files
+    .pipe(gulpIf('*.js', uglify()))
+    .pipe(gulp.dest('dist'))
 });
